@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<article class="article-full">
+    <header class="article-header">
+        <h1>{{ article.title }}</h1>
+        <div class="article-meta">
+            <span>Автор: <strong>{{ article.author.username }}</strong></span>
+            <span>{{ article.publication_date|date:"d.m.Y H:i" }}</span>
+        </div>
+    </header>
+
+    <div class="article-body">
+        {{ article.text|linebreaks }}
+    </div>
+
+    <div class="article-actions">
+        <a href="{% url 'article_list' %}" class="btn btn-outline">&larr; До списку</a>
+        {% if user == article.author or user.is_staff %}
+            <a href="{% url 'article_edit' article.pk %}" class="btn btn-primary">Редагувати</a>
+            <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Видалити</a>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}
