@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/catalogFragment">
+
+    <fragment android:id="@+id/catalogFragment"
+        android:name="com.example.shopmobile.ui.catalog.CatalogFragment"
+        android:label="Каталог">
+        <action android:id="@+id/action_catalog_to_detail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/productDetailFragment"
+        android:name="com.example.shopmobile.ui.detail.ProductDetailFragment"
+        android:label="Товар">
+        <argument android:name="productId"
+            app:argType="string" android:defaultValue="" />
+    </fragment>
+
+    <fragment android:id="@+id/cartFragment"
+        android:name="com.example.shopmobile.ui.cart.CartFragment"
+        android:label="Кошик">
+        <action android:id="@+id/action_cart_to_checkout"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/checkoutFragment"
+        android:name="com.example.shopmobile.ui.checkout.CheckoutFragment"
+        android:label="Оформлення" />
+
+    <fragment android:id="@+id/wishlistFragment"
+        android:name="com.example.shopmobile.ui.wishlist.WishlistFragment"
+        android:label="Бажані">
+        <action android:id="@+id/action_wishlist_to_detail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/ordersFragment"
+        android:name="com.example.shopmobile.ui.orders.OrdersFragment"
+        android:label="Замовлення">
+        <action android:id="@+id/action_orders_to_detail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/loginFragment"
+        android:name="com.example.shopmobile.ui.auth.LoginFragment"
+        android:label="Акаунт">
+        <action android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/registerFragment"
+        android:name="com.example.shopmobile.ui.auth.RegisterFragment"
+        android:label="Реєстрація" />
+
+</navigation>

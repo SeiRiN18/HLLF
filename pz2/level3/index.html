@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трекер фільмів — ПЗ №2 Рівень 3</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+        header { background: #1e3a5f; color: rgba(255,255,255,0.8); padding: 0.8rem 2rem; font-size: 0.82rem; }
+        .page-title { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 1.1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .page-title h1 { font-size: 1.35rem; }
+        .count { background: #dbeafe; color: #1d4ed8; font-size: 0.82rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; }
+        main { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; display: grid; grid-template-columns: 340px 1fr; gap: 1.8rem; align-items: start; }
+        @media (max-width: 720px) { main { grid-template-columns: 1fr; } }
+
+        .form-card { background: #fff; border-radius: 12px; padding: 1.6rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: sticky; top: 1rem; }
+        .form-card h2 { font-size: 1rem; margin-bottom: 1.2rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.35rem; }
+        input, select, textarea {
+            width: 100%; padding: 0.5rem 0.75rem;
+            border: 1.5px solid #e2e8f0; border-radius: 8px;
+            font-size: 0.9rem; font-family: inherit; color: #1e293b;
+            background: #fafafa; transition: border-color 0.15s;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #3b82f6; background: #fff; }
+        textarea { resize: vertical; min-height: 80px; }
+        .rating-row { display: flex; align-items: center; gap: 0.75rem; }
+        input[type=range] { flex: 1; accent-color: #3b82f6; }
+        .rating-val { font-weight: 700; font-size: 1.1rem; color: #3b82f6; min-width: 2ch; text-align: center; }
+        .stars-preview { color: #f59e0b; font-size: 1rem; }
+        .btn-submit { width: 100%; padding: 0.65rem; background: #3b82f6; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background 0.15s; }
+        .btn-submit:hover { background: #2563eb; }
+
+        .list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+        .list-header h2 { font-size: 1rem; }
+        .sort-select { font-size: 0.83rem; padding: 0.3rem 0.6rem; border: 1.5px solid #e2e8f0; border-radius: 6px; background: #fff; color: #475569; cursor: pointer; }
+        .movies-grid { display: grid; gap: 1rem; }
+        .movie-card { background: #fff; border-radius: 10px; padding: 1.3rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 0.5rem; }
+        .movie-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+        .movie-title { font-size: 1.05rem; font-weight: 600; }
+        .movie-year { color: #64748b; font-size: 0.85rem; white-space: nowrap; }
+        .movie-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+        .genre-tag { background: #f1f5f9; color: #475569; font-size: 0.78rem; padding: 0.2rem 0.6rem; border-radius: 20px; border: 1px solid #e2e8f0; }
+        .stars { color: #f59e0b; font-size: 0.95rem; letter-spacing: 1px; }
+        .rating-num { font-size: 0.82rem; color: #64748b; }
+        .review-text { font-size: 0.88rem; color: #475569; line-height: 1.6; border-top: 1px solid #f1f5f9; padding-top: 0.5rem; }
+        .btn-delete { background: none; border: 1px solid #fca5a5; color: #ef4444; padding: 0.25rem 0.65rem; border-radius: 6px; font-size: 0.78rem; cursor: pointer; white-space: nowrap; align-self: flex-start; transition: background 0.15s; }
+        .btn-delete:hover { background: #fee2e2; }
+        .empty { text-align: center; padding: 3.5rem 2rem; color: #94a3b8; font-size: 1rem; }
+    </style>
+</head>
+<body>
+<header>ПЗ №2 · Рівень 3 · Завдання 3 — Трекер фільмів (localStorage)</header>
+
+<div class="page-title">
+    <h1>🎬 Мої фільми</h1>
+    <span class="count" id="count">0 фільмів</span>
+</div>
+
+<main>
+    <div class="form-card">
+        <h2>Додати фільм</h2>
+        <form id="movie-form">
+            <div class="form-group">
+                <label for="title">Назва *</label>
+                <input id="title" name="title" type="text" placeholder="Назва фільму" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Рік</label>
+                <input id="year" name="year" type="number" min="1900" max="2025" placeholder="2024">
+            </div>
+            <div class="form-group">
+                <label for="genre">Жанр</label>
+                <select id="genre" name="genre">
+                    <option value="Бойовик">Бойовик</option>
+                    <option value="Драма">Драма</option>
+                    <option value="Комедія">Комедія</option>
+                    <option value="Трилер">Трилер</option>
+                    <option value="Фантастика">Фантастика</option>
+                    <option value="Жахи">Жахи</option>
+                    <option value="Мелодрама">Мелодрама</option>
+                    <option value="Анімація">Анімація</option>
+                    <option value="Документальний">Документальний</option>
+                    <option value="Інший">Інший</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Оцінка: <span id="rating-display">5</span>/10</label>
+                <div class="rating-row">
+                    <input id="rating" name="rating" type="range" min="1" max="10" value="5"
+                        oninput="document.getElementById('rating-display').textContent=this.value; updateStars(this.value)">
+                    <div class="stars-preview" id="stars-preview">★★★★★</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="review">Рецензія</label>
+                <textarea id="review" name="review" placeholder="Ваші враження від фільму..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Додати фільм</button>
+        </form>
+    </div>
+
+    <div>
+        <div class="list-header">
+            <h2>Список переглянутих</h2>
+            <select class="sort-select" onchange="renderMovies(this.value)">
+                <option value="date">За датою (нові)</option>
+                <option value="rating">За оцінкою</option>
+                <option value="title">За назвою</option>
+            </select>
+        </div>
+        <div class="movies-grid" id="movies-grid"></div>
+    </div>
+</main>
+
+<script>
+    const KEY = 'pz2_movies_l3';
+
+    function load() { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+    function save(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
+
+    function stars(n) {
+        const full = Math.round(n / 2);
+        return '★'.repeat(full) + '☆'.repeat(5 - full);
+    }
+
+    function updateStars(n) {
+        document.getElementById('stars-preview').textContent = stars(n);
+    }
+
+    function renderMovies(sortBy = 'date') {
+        const movies = load();
+        const grid = document.getElementById('movies-grid');
+        document.getElementById('count').textContent = movies.length + ' фільм' + (movies.length === 1 ? '' : movies.length > 4 ? 'ів' : 'и');
+
+        if (!movies.length) {
+            grid.innerHTML = '<p class="empty">Список порожній. Додайте перший фільм!</p>';
+            return;
+        }
+
+        const sorted = [...movies].sort((a, b) => {
+            if (sortBy === 'rating') return b.rating - a.rating;
+            if (sortBy === 'title')  return a.title.localeCompare(b.title, 'uk');
+            return b.id - a.id;
+        });
+
+        grid.innerHTML = '';
+        sorted.forEach(m => grid.appendChild(createCard(m)));
+    }
+
+    function createCard(m) {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+
+        const top = document.createElement('div');
+        top.className = 'movie-top';
+        const titleEl = document.createElement('div');
+        titleEl.className = 'movie-title';
+        titleEl.textContent = m.title;
+        const yearEl = document.createElement('span');
+        yearEl.className = 'movie-year';
+        yearEl.textContent = m.year ? m.year : '';
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn-delete';
+        delBtn.textContent = 'Видалити';
+        delBtn.onclick = () => deleteMovie(m.id);
+        top.append(titleEl, yearEl, delBtn);
+
+        const meta = document.createElement('div');
+        meta.className = 'movie-meta';
+        const genreTag = document.createElement('span');
+        genreTag.className = 'genre-tag';
+        genreTag.textContent = m.genre;
+        const starsEl = document.createElement('span');
+        starsEl.className = 'stars';
+        starsEl.textContent = stars(m.rating);
+        const ratingNum = document.createElement('span');
+        ratingNum.className = 'rating-num';
+        ratingNum.textContent = m.rating + '/10';
+        meta.append(genreTag, starsEl, ratingNum);
+
+        card.append(top, meta);
+
+        if (m.review) {
+            const reviewEl = document.createElement('p');
+            reviewEl.className = 'review-text';
+            reviewEl.textContent = m.review;
+            card.appendChild(reviewEl);
+        }
+
+        return card;
+    }
+
+    function deleteMovie(id) {
+        save(load().filter(m => m.id !== id));
+        renderMovies(document.querySelector('.sort-select').value);
+    }
+
+    document.getElementById('movie-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        const movie = {
+            id:     Date.now(),
+            title:  fd.get('title').trim(),
+            year:   fd.get('year') ? parseInt(fd.get('year')) : null,
+            genre:  fd.get('genre'),
+            rating: parseInt(fd.get('rating')),
+            review: fd.get('review').trim(),
+        };
+        const movies = load();
+        movies.unshift(movie);
+        save(movies);
+        this.reset();
+        document.getElementById('rating-display').textContent = '5';
+        document.getElementById('stars-preview').textContent = '★★★★★';
+        renderMovies(document.querySelector('.sort-select').value);
+    });
+
+    renderMovies();
+</script>
+</body>
+</html>

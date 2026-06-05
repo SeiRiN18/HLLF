@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "ShopMobile",
+    "slug": "shop-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "resizeMode": "contain", "backgroundColor": "#1e3a5f" },
+    "android": { "adaptiveIcon": { "backgroundColor": "#1e3a5f" } },
+    "platforms": ["ios", "android", "web"]
+  }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShopMobile</string>
+    <string name="tab_catalog">Каталог</string>
+    <string name="tab_cart">Кошик</string>
+    <string name="tab_wishlist">Бажані</string>
+    <string name="tab_orders">Замовлення</string>
+    <string name="tab_account">Акаунт</string>
+</resources>

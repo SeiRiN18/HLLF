@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Парсер — ПЗ №2 Рівень 2</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+        header { background: #1e3a5f; color: rgba(255,255,255,0.8); padding: 0.8rem 2rem; font-size: 0.82rem; }
+        main { max-width: 960px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 640px) { main { grid-template-columns: 1fr; } }
+        .panel { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        .panel h2 { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; margin-bottom: 1rem; }
+        textarea {
+            width: 100%; height: 280px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.87rem; line-height: 1.6;
+            padding: 0.75rem; border: 1.5px solid #e2e8f0;
+            border-radius: 8px; resize: vertical; color: #1e293b;
+            background: #fafafa;
+        }
+        textarea:focus { outline: none; border-color: #3b82f6; background: #fff; }
+        .btn-row { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        button { padding: 0.45rem 1rem; border-radius: 8px; border: none; cursor: pointer; font-size: 0.87rem; font-weight: 500; transition: opacity 0.15s; }
+        button:hover { opacity: 0.82; }
+        .btn-blue   { background: #3b82f6; color: #fff; }
+        .btn-gray   { background: #e2e8f0; color: #475569; }
+        .btn-indigo { background: #e0e7ff; color: #4338ca; }
+        .status { margin-top: 0.8rem; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.84rem; display: none; }
+        .status.ok  { background: #dcfce7; color: #166534; display: block; }
+        .status.err { background: #fee2e2; color: #dc2626; display: block; }
+        #output { font-family: 'Consolas', 'Courier New', monospace; font-size: 0.85rem; overflow: auto; max-height: 420px; }
+        .placeholder { color: #94a3b8; padding: 3rem; text-align: center; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .tree ul { list-style: none; padding-left: 1.3rem; margin: 0; border-left: 1px dashed #e2e8f0; }
+        .tree > ul { border-left: none; padding-left: 0; }
+        .tree li { padding: 0.18rem 0; line-height: 1.5; }
+        .k   { color: #7c3aed; }
+        .str { color: #16a34a; }
+        .num { color: #2563eb; }
+        .boo { color: #d97706; }
+        .nul { color: #94a3b8; font-style: italic; }
+        .badge { font-size: 0.68rem; background: #f1f5f9; color: #94a3b8; padding: 0.1rem 0.38rem; border-radius: 4px; margin-left: 0.3rem; vertical-align: middle; }
+        .collapsible > summary { cursor: pointer; list-style: none; display: inline; }
+        .collapsible > summary::before { content: '▾ '; font-size: 0.7rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+<header>ПЗ №2 · Рівень 2 · Завдання 1 — JSON Парсер (введення JSON → деревоподібна структура)</header>
+<main>
+    <div class="panel">
+        <h2>Введіть JSON-рядок</h2>
+        <textarea id="input" placeholder='{"key": "value", "arr": [1, 2, 3]}'></textarea>
+        <div class="btn-row">
+            <button class="btn-blue"   onclick="parseJSON()">Розпарсити</button>
+            <button class="btn-gray"   onclick="clearAll()">Очистити</button>
+            <button class="btn-indigo" onclick="loadSample()">Приклад</button>
+        </div>
+        <div id="status" class="status"></div>
+    </div>
+
+    <div class="panel">
+        <h2>Деревоподібна структура</h2>
+        <div id="output">
+            <p class="placeholder">← Введіть JSON та натисніть «Розпарсити»</p>
+        </div>
+    </div>
+</main>
+
+<script>
+    const SAMPLE = JSON.stringify({
+        "студент": {
+            "імʼя": "Олег Семьонов",
+            "вік": 19,
+            "група": "ПЗПІ-23-2",
+            "активний": true,
+            "стипендія": null,
+            "оцінки": { "математика": 90, "програмування": 95, "БД": 87 },
+            "хобі": ["Програмування", "Читання", "Спорт"]
+        }
+    }, null, 2);
+
+    function parseJSON() {
+        const text = document.getElementById('input').value.trim();
+        const output = document.getElementById('output');
+
+        if (!text) { setStatus('Введіть JSON-рядок', 'err'); return; }
+
+        try {
+            const data = JSON.parse(text);
+            setStatus(`✓ Дійсний JSON  |  тип кореня: ${typeLabel(data)}`, 'ok');
+            output.innerHTML = '';
+            const tree = document.createElement('div');
+            tree.className = 'tree';
+            const ul = document.createElement('ul');
+            ul.appendChild(buildNode(data, null));
+            tree.appendChild(ul);
+            output.appendChild(tree);
+        } catch (e) {
+            setStatus('✕ Недійсний JSON: ' + e.message, 'err');
+            output.innerHTML = '<p class="placeholder">Виправте помилку та спробуйте знову</p>';
+        }
+    }
+
+    function buildNode(value, key) {
+        const li = document.createElement('li');
+        const keyHtml = key !== null ? `<span class="k">"${escHtml(String(key))}"</span>: ` : '';
+
+        if (Array.isArray(value)) {
+            li.innerHTML = keyHtml + `[<span class="badge">array · ${value.length}</span>`;
+            if (value.length) {
+                const details = document.createElement('details');
+                details.className = 'collapsible';
+                details.open = true;
+                const summary = document.createElement('summary');
+                details.appendChild(summary);
+                const ul = document.createElement('ul');
+                value.forEach((v, i) => ul.appendChild(buildNode(v, i)));
+                details.appendChild(ul);
+                li.appendChild(details);
+            }
+            li.appendChild(document.createTextNode(']'));
+
+        } else if (value !== null && typeof value === 'object') {
+            const keys = Object.keys(value);
+            li.innerHTML = keyHtml + `{<span class="badge">object · ${keys.length}</span>`;
+            if (keys.length) {
+                const details = document.createElement('details');
+                details.className = 'collapsible';
+                details.open = true;
+                const summary = document.createElement('summary');
+                details.appendChild(summary);
+                const ul = document.createElement('ul');
+                keys.forEach(k => ul.appendChild(buildNode(value[k], k)));
+                details.appendChild(ul);
+                li.appendChild(details);
+            }
+            li.appendChild(document.createTextNode('}'));
+
+        } else {
+            let cls, display;
+            if (value === null)           { cls = 'nul'; display = 'null'; }
+            else if (typeof value === 'string')  { cls = 'str'; display = `"${escHtml(value)}"`; }
+            else if (typeof value === 'number')  { cls = 'num'; display = String(value); }
+            else                                  { cls = 'boo'; display = String(value); }
+            li.innerHTML = keyHtml + `<span class="${cls}">${display}</span>`;
+        }
+        return li;
+    }
+
+    function typeLabel(v) {
+        if (v === null) return 'null';
+        if (Array.isArray(v)) return `array[${v.length}]`;
+        return typeof v;
+    }
+
+    function escHtml(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function setStatus(msg, type) {
+        const s = document.getElementById('status');
+        s.textContent = msg;
+        s.className = 'status ' + type;
+    }
+
+    function clearAll() {
+        document.getElementById('input').value = '';
+        document.getElementById('output').innerHTML = '<p class="placeholder">← Введіть JSON та натисніть «Розпарсити»</p>';
+        const s = document.getElementById('status');
+        s.className = 'status'; s.textContent = '';
+    }
+
+    function loadSample() {
+        document.getElementById('input').value = SAMPLE;
+        parseJSON();
+    }
+</script>
+</body>
+</html>

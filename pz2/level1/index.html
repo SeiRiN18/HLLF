@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про мене — ПЗ №2 Рівень 1</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; color: #1e293b; }
+        header { background: #1e3a5f; color: rgba(255,255,255,0.8); padding: 0.8rem 2rem; font-size: 0.82rem; }
+        main { max-width: 560px; margin: 2.5rem auto; padding: 0 1rem; }
+        .card { background: #fff; border-radius: 12px; padding: 2.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        .avatar { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1e3a5f); color: #fff; font-size: 1.9rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; }
+        .name { text-align: center; font-size: 1.55rem; margin-bottom: 1.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1.6rem; }
+        .grid-item { background: #f8fafc; border-radius: 8px; padding: 0.7rem; text-align: center; }
+        .lbl { display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+        .val { display: block; font-weight: 600; font-size: 0.88rem; }
+        .section { margin-bottom: 1.4rem; }
+        .section-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; margin-bottom: 0.6rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag { background: #dbeafe; color: #1d4ed8; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.82rem; font-weight: 500; }
+        .tag.skill { background: #dcfce7; color: #166534; }
+        .contact-row { font-size: 0.9rem; color: #475569; margin-bottom: 0.35rem; }
+        .loading { text-align: center; padding: 2.5rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+<header>ПЗ №2 · Рівень 1 · Завдання 1 — Відображення даних про себе (fetch + JSON.parse + createElement)</header>
+<main>
+    <div id="app"><p class="loading">Завантаження даних...</p></div>
+</main>
+<script>
+
+    const FALLBACK = '{"name":"Олег Семьонов","age":19,"group":"ПЗПІ-23-2","university":"Харківський національний університет радіоелектроніки","hobbies":["Програмування","Геймінг","Спорт","Музика"],"skills":["C#","Flutter","Dart","HTML/CSS"],"contacts":{"Email":"oleh.semonov@nure.ua","GitHub":"github.com/SeiRiN18"}}';
+
+    if (location.protocol === 'file:') {
+        render(JSON.parse(FALLBACK));
+    } else {
+        fetch('data.json')
+            .then(response => response.text())
+            .then(text => render(JSON.parse(text)))
+            .catch(() => render(JSON.parse(FALLBACK)));
+    }
+
+    function render(p) {
+        const app = document.getElementById('app');
+        app.innerHTML = '';
+
+        const card = el('div', 'card');
+
+        const avatar = el('div', 'avatar');
+        avatar.textContent = p.name[0];
+        card.appendChild(avatar);
+
+        const name = el('h2', 'name');
+        name.textContent = p.name;
+        card.appendChild(name);
+
+        const grid = el('div', 'grid');
+        [['Вік', p.age + ' р.'], ['Група', p.group], ['Університет', p.university]].forEach(([lbl, val]) => {
+            const item = el('div', 'grid-item');
+            const l = el('span', 'lbl'); l.textContent = lbl;
+            const v = el('span', 'val');  v.textContent = val;
+            item.append(l, v);
+            grid.appendChild(item);
+        });
+        card.appendChild(grid);
+
+        card.appendChild(tagsSection('Хобі',     p.hobbies, ''));
+        card.appendChild(tagsSection('Навички',  p.skills,  'skill'));
+
+        const contactTitle = el('p', 'section-title');
+        contactTitle.textContent = 'Контакти';
+        card.appendChild(contactTitle);
+
+        Object.entries(p.contacts).forEach(([key, value]) => {
+            const row = el('p', 'contact-row');
+            const b = el('strong'); b.textContent = key + ': ';
+            row.append(b, document.createTextNode(value));
+            card.appendChild(row);
+        });
+
+        app.appendChild(card);
+    }
+
+    function tagsSection(title, items, tagClass) {
+        const section = el('div', 'section');
+        const t = el('p', 'section-title'); t.textContent = title;
+        const tags = el('div', 'tags');
+        items.forEach(text => {
+            const tag = el('span', tagClass ? 'tag ' + tagClass : 'tag');
+            tag.textContent = text;
+            tags.appendChild(tag);
+        });
+        section.append(t, tags);
+        return section;
+    }
+
+    function el(tag, cls) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        return e;
+    }
+</script>
+</body>
+</html>

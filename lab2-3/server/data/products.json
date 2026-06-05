@@ -1,0 +1,102 @@
+[
+  {
+    "id": "p1",
+    "name": "Ноутбук Dell XPS 13",
+    "category": "Електроніка",
+    "price": 45000,
+    "description": "Ультрабук з дисплеєм InfinityEdge 13.4\", процесором Intel Core i7 12-го покоління та 16 ГБ RAM.",
+    "image": "https://placehold.co/400x280/1e3a5f/white?text=Dell+XPS+13",
+    "stock": 5,
+    "rating": 4.8
+  },
+  {
+    "id": "p2",
+    "name": "Навушники Sony WH-1000XM5",
+    "category": "Електроніка",
+    "price": 12000,
+    "description": "Бездротові навушники з активним шумозаглушенням та 30 годинами автономної роботи.",
+    "image": "https://placehold.co/400x280/1e3a5f/white?text=Sony+WH-1000XM5",
+    "stock": 12,
+    "rating": 4.9
+  },
+  {
+    "id": "p3",
+    "name": "Смартфон iPhone 15",
+    "category": "Електроніка",
+    "price": 38000,
+    "description": "Флагманський смартфон з чіпом A16 Bionic, 48 МП камерою та Dynamic Island.",
+    "image": "https://placehold.co/400x280/1e3a5f/white?text=iPhone+15",
+    "stock": 8,
+    "rating": 4.7
+  },
+  {
+    "id": "p4",
+    "name": "Планшет iPad Pro 12.9",
+    "category": "Електроніка",
+    "price": 52000,
+    "description": "Потужний планшет з чіпом M2, дисплеєм Liquid Retina XDR та підтримкою Apple Pencil.",
+    "image": "https://placehold.co/400x280/1e3a5f/white?text=iPad+Pro",
+    "stock": 6,
+    "rating": 4.8
+  },
+  {
+    "id": "p5",
+    "name": "Зимова куртка Columbia",
+    "category": "Одяг",
+    "price": 4500,
+    "description": "Тепла куртка з утеплювачем Omni-Heat та водовідштовхувальним покриттям.",
+    "image": "https://placehold.co/400x280/2d6a4f/white?text=Columbia+Jacket",
+    "stock": 20,
+    "rating": 4.5
+  },
+  {
+    "id": "p6",
+    "name": "Кросівки Nike Air Max 270",
+    "category": "Одяг",
+    "price": 5500,
+    "description": "Стильні кросівки з амортизаційною підошвою Air Max для комфортного носіння весь день.",
+    "image": "https://placehold.co/400x280/2d6a4f/white?text=Nike+Air+Max",
+    "stock": 15,
+    "rating": 4.6
+  },
+  {
+    "id": "p7",
+    "name": "JavaScript: Повний посібник",
+    "category": "Книги",
+    "price": 850,
+    "description": "Вичерпне керівництво по JavaScript для початківців та досвідчених розробників. Автор: David Flanagan.",
+    "image": "https://placehold.co/400x280/7b2d8b/white?text=JS+Guide",
+    "stock": 30,
+    "rating": 4.9
+  },
+  {
+    "id": "p8",
+    "name": "Clean Code",
+    "category": "Книги",
+    "price": 720,
+    "description": "Книга Роберта Мартіна про принципи написання чистого, зрозумілого та підтримуваного коду.",
+    "image": "https://placehold.co/400x280/7b2d8b/white?text=Clean+Code",
+    "stock": 25,
+    "rating": 4.8
+  },
+  {
+    "id": "p9",
+    "name": "Кавоварка DeLonghi",
+    "category": "Дім",
+    "price": 7800,
+    "description": "Автоматична кавоварка з вбудованим кавомолком та функцією капучіно.",
+    "image": "https://placehold.co/400x280/8b3a2a/white?text=DeLonghi",
+    "stock": 7,
+    "rating": 4.7
+  },
+  {
+    "id": "p10",
+    "name": "Пилосос Dyson V15",
+    "category": "Дім",
+    "price": 18000,
+    "description": "Безпровідний пилосос з лазерним виявленням пилу та 60 хв автономної роботи.",
+    "image": "https://placehold.co/400x280/8b3a2a/white?text=Dyson+V15",
+    "stock": 4,
+    "rating": 4.9
+  }
+]

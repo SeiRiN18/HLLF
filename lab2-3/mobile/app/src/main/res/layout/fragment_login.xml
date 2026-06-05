@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Logged in state -->
+        <LinearLayout
+            android:id="@+id/layoutLoggedIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="40dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorNavDark"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorMuted"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Вийти"
+                android:textSize="15sp"
+                android:textColor="@color/colorDanger"
+                android:background="@drawable/bg_input" />
+
+        </LinearLayout>
+
+        <!-- Logged out state -->
+        <LinearLayout
+            android:id="@+id/layoutLoggedOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Вхід"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorNavDark"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/colorDanger"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Логін" android:textSize="12sp" android:textColor="@color/colorMuted" android:textAllCaps="true" android:layout_marginBottom="4dp" />
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:background="@drawable/bg_input"
+                android:padding="12dp"
+                android:layout_marginBottom="14dp" />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Пароль" android:textSize="12sp" android:textColor="@color/colorMuted" android:textAllCaps="true" android:layout_marginBottom="4dp" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_input"
+                android:padding="12dp"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Увійти"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_btn_primary"
+                android:layout_marginBottom="14dp" />
+
+            <Button
+                android:id="@+id/btnToRegister"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Немає акаунту? Зареєструватися"
+                android:textSize="13sp"
+                android:textColor="@color/colorPrimary"
+                android:background="@android:color/transparent" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

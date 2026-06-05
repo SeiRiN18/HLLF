@@ -1,0 +1,12 @@
+{
+  "name": "Олег Семьонов",
+  "age": 19,
+  "group": "ПЗПІ-23-2",
+  "university": "Харківський національний університет радіоелектроніки",
+  "hobbies": ["Програмування", "Геймінг", "Спорт", "Музика"],
+  "skills": ["C#", "Flutter", "Dart", "HTML/CSS"],
+  "contacts": {
+    "Email": "oleh.semonov@nure.ua",
+    "GitHub": "github.com/SeiRiN18"
+  }
+}
