@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/bg_input"
+        android:hint="Назва фільму"
+        android:inputType="textCapSentences"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorMuted"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etGenre"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/bg_input"
+        android:hint="Жанр"
+        android:inputType="textCapSentences"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorMuted"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etRating"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/bg_input"
+        android:hint="Рейтинг (0–10)"
+        android:inputType="numberDecimal"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorMuted" />
+
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ПЗ 3 — Kotlin Android"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorText"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Семьонов Олег, ПЗПІ-23-2"
+        android:textSize="14sp"
+        android:textColor="@color/colorMuted"
+        android:layout_marginBottom="40dp" />
+
+    <Button
+        android:id="@+id/btnLevel1"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="@string/level1_btn"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnLevel2"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="@string/level2_btn"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnLevel3"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="@string/level3_btn"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnLevel4"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="@string/level4_btn"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

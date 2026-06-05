@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <!-- Header toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorSurface">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Фітнес-трекер"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText" />
+
+        <Button
+            android:id="@+id/btnAddWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="+ Додати"
+            android:background="@drawable/bg_btn"
+            android:textColor="@color/white"
+            android:paddingHorizontal="16dp" />
+
+    </LinearLayout>
+
+    <!-- Stats card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorSurface"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="12dp"
+        android:elevation="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Статистика"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvStatCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Тренувань: 0"
+                android:textSize="14sp"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/tvStatTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Час: 0г 0хв"
+                android:textSize="14sp"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStatCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Калорії: 0 ккал"
+            android:textSize="14sp"
+            android:textColor="@color/colorText"
+            android:layout_marginBottom="8dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBorder"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="По типам:"
+            android:textSize="13sp"
+            android:textColor="@color/colorMuted"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvStatBreakdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="—"
+            android:textSize="13sp"
+            android:textColor="@color/colorText" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Тренувань поки немає.\nДодайте перше!"
+        android:textSize="16sp"
+        android:textColor="@color/colorMuted"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorkouts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>

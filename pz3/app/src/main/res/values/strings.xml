@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ПЗ 3</string>
+    <string name="level1_btn">Рівень 1 — Привітання</string>
+    <string name="level2_btn">Рівень 2 — Калькулятор</string>
+    <string name="level3_btn">Рівень 3 — Список фільмів</string>
+    <string name="level4_btn">Рівень 4 — Фітнес-трекер</string>
+</resources>
